@@ -1,0 +1,572 @@
+################################### Practical no.01 #################################
+
+Aim:study and enlist the basic functions used for graphics in c/c++ language.
+#include<graphics.h>
+#include<stdlib.h>
+#include<stdio.h>
+#include<conio.h>
+int main(void)
+{
+intgdriver=DETECT,gmode,errorcode,midx,midy;
+initgraph(&gdriver,&gmode,"C:\\TC\\bgi");
+errorcode=graphresult();
+if(errorcode!=grOk)
+{
+printf("Graphics error%s\n",grapherrormsg(errorcode));
+printf("press any key to halt");
+getch();
+exit(1);
+}
+midx=getmaxx()/2;
+midy=getmaxy()/2;
+line(midx,midy,20,20);
+getch();
+closegraph();
+return 0;
+}
+
+################################# Practical no.01(b) ##############################
+
+Aim:Draw a co-ordinate axis at tecentre of the screen.
+Code:
+#include<graphics.h>
+#include<stdlib.h>
+#include<stdio.h>
+#include<conio.h>
+int main(void)
+{
+intgdriver=DETECT,gmode,errorcode,midx,midy;
+initgraph(&gdriver,&gmode,"C:\\TC\\bgi");
+errorcode=graphresult();
+if(errorcode!=grOk)
+{
+printf("Graphics error%s\n",grapherrormsg(errorcode));
+printf("press any key to halt");
+getch();
+exit(1);
+}
+midx=getmaxx()/2;
+midy=getmaxy()/2;
+setcolor(getmaxcolor());
+line(midx,0,midx,getmaxy());
+line(0,midy,getmaxx(),midy);
+getch();
+closegraph();
+return 0;
+}
+
+##################################### Practical no.02(A) #######################################
+
+Aim: Divide your screen into four regions, draw a circle, rectangle, ellipse and square in each region with appropriate message.
+
+#include<graphics.h>
+#include<stdlib.h>
+#include<stdio.h>
+#include<conio.h>
+int main(void)
+{
+intgdriver=DETECT,gmode,errorcode,midx,midy;
+initgraph(&gdriver,&gmode,"C:\\TC\\bgi");
+errorcode=graphresult();
+if(errorcode!=grOk)
+{
+printf("Graphics error%s\n",grapherrormsg(errorcode));
+printf("press any key to halt");
+getch();
+exit(1);
+}
+midx=getmaxx()/2;
+midy=getmaxy()/2;
+line(midx,0,midx,getmaxy());
+line(0,midy,getmaxx(),midy);
+outtextxy(midx+60,midy-40,"Rectangle");
+rectangle(midx+50,midy-50,midx+200,midy-150);
+outtextxy(midx-150,midy-70,"Circle");
+circle(midx-150,midy-150,70);
+outtextxy(midx+100,midy+170,"Sqaure");
+rectangle(midx+70,midy+70,midx+160,midy+160);
+outtextxy(midx-190,midy+170,"Ellipse");
+ellipse(150,340,0,360,110,50);
+getch();
+closegraph();
+return 0;
+}
+#############################################3 Practical 2B ###################################
+
+Aim:Draw simple hut on screen
+Program:
+#include <graphics.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <conio.h>
+
+int main(void)
+{
+intgdriver = DETECT, gmode, errorcode;
+initgraph(&gdriver, &gmode, "C:\\TC\\bgi");
+errorcode = graphresult();
+if (errorcode != grOk)
+   {
+printf("Graphics error: %s\n", grapherrormsg(errorcode));
+printf("Press any key to halt:");
+getch();
+exit(1);
+   }
+line(249,182,404,60);
+line(542,182,404,60);
+rectangle(360,388,439,280);
+rectangle(278,163,513,388);
+getch();
+closegraph();
+return 0;
+}
+#################################### Practical no.03 ###########################################
+
+Aim:Draw the following basic shapes in the center of the screen.
+a)circle b)rectangle c)square d)concentric circles e)ellipse f)line
+
+#include<graphics.h>
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<math.h>
+int main(void)
+{
+intgdriver=DETECT,gmode,errorcode,midx,midy;
+initgraph(&gdriver,&gmode,"C:\\TC\\bgi");
+errorcode=graphresult();
+if(errorcode!=grOk)
+{
+printf("Graphics errors%s\n",grapherrormsg(errorcode));
+printf("press any key to halt");
+getch();
+exit(1);
+}
+midx=getmaxx()/2;
+midy=getmaxy()/2;
+circle(midx,midy,40);
+rectangle(midx-50,midy+50,midx+50,midy-50);
+rectangle(midx-150,midy+100,midx+150,midy-100);
+ellipse(midx,midy,0,360,120,60);
+line(midx+250,midy,5,midy);
+circle(midx,midy,50);
+circle(midx,midy,60);
+circle(midx,midy,70);
+circle(midx,midy,80);
+getch();
+closegraph();
+return 0;
+}
+
+
+##################################### Practical no.04(a) #######################################
+
+Aim: Write a program to draw a line using DDA line drawing algorithm.
+
+#include<graphics.h>
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<math.h>
+voidDDALine(intxa,intya,intxb,intyb)
+{
+int dx=xb-xa,dy=yb-ya,steps,k;
+floatincrementx,incrementy,x=xa,y=ya;
+if(abs(dx)>abs(dy))
+steps=abs(dx);
+else
+steps=abs(dy);
+incrementx=dx/(float)steps;
+incrementy=dy/(float)steps;
+putpixel(ceil(x),ceil(y),BLUE);
+for(k=0;k<steps;k++)
+{
+x+=incrementx;
+y+=incrementy;
+putpixel(ceil(x),ceil(y),BLUE);
+}
+}
+int main(void)
+{
+intgdriver=DETECT,gmode,errorcode;
+initgraph(&gdriver,&gmode,"C:\\TC\\bgi");
+errorcode=graphresult();
+if(errorcode!=grOk)
+{
+printf("Graphics errors%s\n",grapherrormsg(errorcode));
+printf("press any key to halt");
+getch();
+exit(1);
+}
+DDALine(40,50,60,70);
+getch();
+
+
+
+closegraph();
+return 0;
+}
+
+################################ Practical no.04(b) ########################################
+
+Aim: Write a program to draw a line using Bresenham’s line drawing algorithm.
+Code:
+#include<graphics.h>
+#include<conio.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+voidlineBres(intxa,intya,intxb,intyb)
+{
+int dx=abs(xa-xb),dy=abs(ya-yb);
+int p=2*dy-dx;
+inttwoDy=2*dy,twoDyDx=2*(dy-dx);
+intx,y,xEnd;
+if(xa>xb)
+{
+x=xb;
+y=yb;
+xEnd=xa;
+}
+else
+{
+x=xa;
+y=ya;
+xEnd=xb;
+}
+putpixel(x,y,GREEN);
+while(x<xEnd)
+{
+x++;
+if(p<0)
+{
+p+=twoDy;
+}
+else
+{
+y++;
+p+=twoDyDx;
+}
+putpixel(x,y,GREEN);
+}
+}
+int main(void)
+{
+intgdriver=DETECT,gmode,errorcode;
+initgraph(&gdriver,&gmode,"C:\\TC\\bgi");
+errorcode=graphresult();
+if(errorcode!=grOk)
+{
+printf("Graphics errors%s\n",grapherrormsg(errorcode));
+printf("press any key to halt");
+getch();
+exit(1);
+}
+lineBres(140,150,190,200);
+getch();
+closegraph();
+return 0;
+}
+
+############################################### Pratical no.05 #############################################################
+
+A)Aim: develop a program for midpoint-circle drawing algorithm.
+Code:
+#include<graphics.h>
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<math.h>
+void display(int x1,int y1,int x,int y)
+{
+putpixel(x1+x,y1+y,WHITE);
+putpixel(x1+x,y-y1,WHITE);
+putpixel(x-x1,y1+y,WHITE);
+putpixel(x-x1,y-y1,WHITE);
+putpixel(x+y1,y+x1,WHITE);
+putpixel(x+y1,y-x1,WHITE);
+putpixel(x-y1,y+x1,WHITE);
+putpixel(x-y1,y-x1,WHITE);
+}
+voidmidcircle(intxc,intyc,int rad)
+{
+int x,y,x1,y1,r=rad,pk;
+/*printf("enter xc:");
+scanf("%d",&xc);
+printf("enter yc:");
+scanf("%d",&yc);
+printf("enter radius:");
+scanf("%d",&r); */
+x=0;
+y=rad;
+pk=1-rad;
+while(x<y)
+{
+if(pk<0)
+{
+pk=pk+2*x+1;
+x=x+1;
+}
+else
+{
+pk=pk+2*(x-y)+1;
+x=x+1;
+y=y-1;
+}
+
+display(x,y,xc,yc);
+}
+}
+int main(void)
+{
+intgdriver=DETECT,gmode,errorcode,midx,midy;
+initgraph(&gdriver,&gmode,"C:\\TC\\bgi");
+errorcode=graphresult();
+if(errorcode!=grOk)
+{
+printf("Graphics errors%s\n",grapherrormsg(errorcode));
+printf("press any key to halt");
+getch();
+exit(1);
+}
+midx=getmaxx()/2;
+midy=getmaxy()/2;
+midcircle(midx,midy,50);
+getch();
+closegraph();
+return 0;
+}
+
+##############################################3 Practical No.5b ######################################3
+
+B)Aim: Develop a program for the midpoint ellipse drawing algorithm.
+
+#include<graphics.h>
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<math.h>
+void display(intxs,intys,intx,int y)
+{
+putpixel(xs+x,ys+y,WHITE);
+putpixel(xs-x,ys+y,WHITE);
+putpixel(xs-x,ys-y,WHITE);
+putpixel(xs+x,ys-y,WHITE);
+}
+void ellipse1(int xs1,int ys1,int rx,intry)
+{
+intx,y;
+float d1,d2,dx,dy;
+x=0;
+y=ry;
+d1=pow(ry,2)-(pow(rx,2)*ry)+(0.25*pow(rx,2));
+dx=2*pow(ry,2)*x;
+dy=2*pow(rx,2)*y;
+do{
+display(xs1,ys1,x,y);
+if(d1<0)
+{
+x++;
+dx=dx+(2*(pow(ry,2)));
+d1=d1+dx+(pow(ry,2));
+}
+else
+{
+x++;
+y--;
+dx=dx+(2*(pow(ry,2)));
+dy=dy-(2*(pow(rx,2)));
+d1=d1+dx-dy+(pow(ry,2));
+}
+}while(dx<dy);
+do{
+display(xs1,ys1,x,y);
+if(d2>0)
+{
+x=x;
+y--;
+dy=dy-(2*(pow(rx,2)));
+d2=d2-dy+(pow(rx,2));
+}
+else
+{
+x++;
+y--;
+dy=dy-(2*(pow(rx,2)));
+dx=dx+(2*(pow(ry,2)));
+d2=d2+dx-dy+pow(rx,2);
+}
+}while(y>0);
+}
+int main(void)
+{
+intgdriver=DETECT,gmode,errorcode,midx,midy;
+initgraph(&gdriver,&gmode,"C:\\TC\\bgi");
+errorcode=graphresult();
+if(errorcode!=grOk)
+{
+printf("Graphics errors%s\n",grapherrormsg(errorcode));
+printf("press any key to halt");
+getch();
+exit(1);
+}
+midx=getmaxx()/2;
+midy=getmaxy()/2;
+setcolor(getmaxcolor());
+ellipse1(midx,midy,100,60);
+getch();
+closegraph();
+return 0;
+}
+Output:
+
+####################################3 Practical no.06 (a) ############################################
+Aim: write a program for 2D scaling.
+
+#include<graphics.h>
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<math.h>
+void Scale(int a[3][3],float s[2][2]);
+int main(void)
+{
+intgdriver=DETECT,gmode,errorcode,midx,midy;
+floatScaleFactor[2][2];
+int a[3][3];
+initgraph(&gdriver,&gmode,"C:\\TC\\bgi");
+errorcode=graphresult();
+if(errorcode!=grOk)
+{
+printf("Graphics errors%s\n",grapherrormsg(errorcode));
+printf("press any key to halt");
+getch();
+exit(1);
+}
+printf("Performing the program for scaling the image:");
+printf("\nEnter the value for Scale Factor of X-axis:");
+scanf("%f",&ScaleFactor[0][0]);
+printf("\nEnter the value for Scale Factor of Y-axis:");
+scanf("%f",&ScaleFactor[1][1]);
+midx=getmaxx()/2;
+midy=getmaxy()/2;
+setcolor(getmaxcolor());
+a[0][0]=midx-250;
+a[0][1]=midy;
+a[1][0]=midx-150;
+a[1][1]=midy;
+a[2][0]=midx-200;
+a[2][1]=midy-50;
+Scale(a,ScaleFactor);
+getch();
+closegraph();
+return 0;
+}
+void Scale(int a[3][3],float s[2][2])
+{
+introw,col;
+line(a[0][0],a[0][1],a[1][0],a[1][1]);
+line(a[0][0],a[0][1],a[2][0],a[2][1]);
+line(a[1][0],a[1][1],a[2][0],a[2][1]);
+line(a[0][0]*s[0][0],a[0][1]*s[1][1],a[1][0]*s[0][0],a[1][1]*s[1][1]);
+line(a[0][0]*s[0][0],a[0][1]*s[1][1],a[2][0]*s[0][0],a[2][1]*s[1][1]);
+line(a[1][0]*s[0][0],a[1][1]*s[1][1],a[2][0]*s[0][0],a[2][1]*s[1][1]);
+}
+
+############################################ Practical no.06(b) #############################################
+
+Aim: Write a program to perform 2D translation.
+Code:
+#include<graphics.h>
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<math.h>
+void Translate(int a[3][3],float t[2]);
+int main(void)
+{
+intgdriver=DETECT,gmode,errorcode,midx,midy;
+floatTFactor[2];
+int a[3][3];
+initgraph(&gdriver,&gmode,"C:\\TC\\bgi");
+errorcode=graphresult();
+if(errorcode!=grOk)
+{
+
+printf("Graphics errors%s\n",grapherrormsg(errorcode));
+printf("press any key to halt");
+getch();
+exit(1);
+}
+printf("Performing the program for translating the image:");
+printf("\nEnter the value for Translated Factor of X-axis:");
+scanf("%f",&TFactor[0]);
+printf("\nEnter the value for Translated Factor of Y-axis:");
+scanf("%f",&TFactor[1]);
+midx=getmaxx()/2;
+midy=getmaxy()/2;
+setcolor(getmaxcolor());
+a[0][0]=midx-250;
+a[0][1]=midy;
+a[1][0]=midx-150;
+a[1][1]=midy;
+a[2][0]=midx-200;
+a[2][1]=midy-50;
+Translate(a,TFactor);
+getch();
+closegraph();
+return 0;
+}
+void Translate(int a[3][3],float t[2])
+{
+introw,col;
+line(a[0][0],a[0][1],a[1][0],a[1][1]);
+line(a[0][0],a[0][1],a[2][0],a[2][1]);
+line(a[1][0],a[1][1],a[2][0],a[2][1]);
+line(a[0][0]+t[0],a[0][1]+t[1],a[1][0]+t[0],a[1][1]+t[1]);
+line(a[0][0]+t[0],a[0][1]+t[1],a[2][0]+t[0],a[2][1]+t[1]);
+line(a[1][0]+t[0],a[1][1]+t[1],a[2][0]+t[0],a[2][1]+t[1]);
+}
+
+###################################### Practical No.8 ########################################3
+
+Aim: Develop a smiling face using graphic function.
+Program:
+#include<stdio.h>
+#include<graphics.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<math.h>
+int main(void)
+{
+intgdriver=DETECT,gmode,errorcode;
+initgraph(&gdriver,&gmode,"C:\\TC\\bgi");
+errorcode=graphresult();
+if(errorcode!=grOk)
+{
+printf("Graphics errors%s\n",grapherrormsg(errorcode));
+printf("press any key to halt");
+getch();
+exit(1);
+}
+setcolor(YELLOW);
+circle(200,200,30);
+setfillstyle(SOLID_FILL,YELLOW);
+floodfill(200,200,YELLOW);
+setcolor(BLACK);
+circle(190,190,5);
+setfillstyle(SOLID_FILL,BLACK);
+floodfill(190,190,BLACK);
+arc(190,190,50,130,10);
+circle(210,190,5);
+floodfill(210,190,BLACK);
+arc(210,190,50,130,10);
+arc(200,210,180,360,10);
+line(187,210,193,210);
+line(207,210,213,210);
+getch();
+closegraph();
+return 0;
+
+}
+
