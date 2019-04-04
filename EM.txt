@@ -1,0 +1,172 @@
+################################################# Practical No.2 ####################################################
+
+A) Aim:- Configure timer control registers of  8051 and develop a program to generate given time delay.
+Code:-
+#include <90s8535.h>  
+unsigned int timecount=0;
+unsigned int led_status=0x00;
+interrupt[TIM0_OVF]void timer0_ovf_isr(void)
+{
+TCNT0=6;
+if(++timecount==500)
+{
+timecount=0;
+if(led_status==0x00)
+led_status=0x01;
+else
+led_status=0x00;
+PORTA=led_status;
+}
+}
+void main(void)
+{ 
+DDRA=0x80;
+PORTA=led_status;
+TCCR0=0x02;
+TCNT0=0x00; 
+TIMSK=0x01;
+#asm("sei");
+while(1);
+}
+
+###################################################### Practical No 3 #########################################################
+
+Aim: - Port I/O use one of the four ports of 8051 for output interface to 8 LEDs simulate binary counter (8 bit) on LEDs.
+Code:-
+#include <90s8535.h>  
+#include<delay.h>
+void main(void)
+{
+PORTA=0x00;
+DDRB=0xFF;
+while(1)
+{
+PORTA=0x01;
+delay_ms(500);
+PORTA=0x02;
+delay_ms(500);
+PORTA=0x04;
+delay_ms(500);
+PORTA=0x08;
+delay_ms(500);
+PORTA=0x10;
+delay_ms(500);
+PORTA=0x20;
+delay_ms(500);
+PORTA=0x40;
+delay_ms(500);
+}; 
+}
+
+################################################# Practical No.4 ####################################################
+Aim: - Write a program in assembly C language to generate square wave.
+Code:-
+#include <90s8535.h>     
+int i;
+void main(void)
+{
+DDRA=0xff;
+while(1)
+{
+for(i=0;i<255;i++)
+{
+PORTA=0;
+}      
+for(i=0;i<255;i++)
+{
+PORTA=255;
+}        
+}
+}
+#################################################### Practical No 5 #############################################################
+5. A) Aim: - Write a program in assembly C language to generate triangular wave.
+Code:-
+#include <90s8535.h>
+#include<delay.h>
+int x;
+void main(void)
+{
+PORTA=0x00;
+DDRA=0xff;
+while(1)
+{
+for(x=0;x<255;x++)
+{
+PORTA=x;
+}
+for(x=254;x>=0;x--)
+{
+PORTA=x;
+}
+}
+}
+--------------------------------------------------------------------------------------------------------------------------------
+B) Aim: - Write a program in assembly C language to generate sine wave on oscilloscope with the help of lookup table.
+Code:-
+#include <90s8535.h>
+#include<delay.h>  
+#include<math.h>
+int i;
+unsigned int sine[]={127,146,182,213,226,236,245,254,252,247,239,229,217,203,187,170,152,133,115,96,78,61,46,33,21,12,5,1,0,1,5,12,21,33,46,78,96,115};
+void main(void)
+{
+PORTA=0x00;
+DDRA=0xff;
+while(1)
+{
+for(i=0;i<39;i++)
+{
+PORTA=sine[i];
+}
+}
+}
+####################################################### Practical No 6 ################################################
+Aim: - Write a program in assembly C language to rotate stepper motor in clockwise and anticlockwise direction.
+#include <90s8535.h>
+#include<delay.h>
+unsigned int motor_statusA=0x00;
+unsigned int motor_statusB=0x00;
+void main(void)
+{
+DDRA=0xff;
+DDRA=0xff;
+#asm("sei");
+while(1)
+{
+if(motor_statusA==0x00)
+{
+motor_statusA=0x01;
+motor_statusB=0x08;
+}
+PORTA=motor_statusA;
+PORTB=motor_statusB;
+motor_statusA<<=1;
+motor_statusB>>=1;
+delay_ms(500);
+if(motor_statusA==0x10)
+{
+motor_statusA=0x01;
+motor_statusB=0x01;
+PORTA=motor_statusA;
+PORTB=motor_statusB;
+delay_ms(500);
+motor_statusB=0x08;
+}
+}
+}
+#################################################3 Alternate ###############################################################
+#include <90s8535.h>  
+#include<delay.h>
+void main(void)
+{
+PORTA=0x00;
+DDRB=0xFF;
+while(1)
+{
+PORTA=0x01;
+delay_ms(300);
+PORTA=0x02;
+delay_ms(300);
+}; 
+}
+######################################################## End ######################################################
